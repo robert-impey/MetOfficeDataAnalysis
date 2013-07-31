@@ -17,5 +17,15 @@ namespace MetOfficeDataAnalysis.Lib
 
             StationName = reader.ReadLine();
         }
+
+        public ICollection<MonthlyStationData> MonthlyData
+        {
+            get
+            {
+                var monthlyData = new LinkedList<MonthlyStationData>();
+
+                return monthlyData;
+            }
+        }
     }
 }
