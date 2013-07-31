@@ -1,0 +1,9 @@
+*.exe
+*.pdb
+*.suo
+*.user
+bin
+obj
+publish
+~$*.xlsx
+*_TemporaryKey.pfx
