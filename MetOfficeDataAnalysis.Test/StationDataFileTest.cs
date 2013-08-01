@@ -849,5 +849,53 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
 
             Expect(actualMonthlyData, Is.EqualTo(expectMonthlyData));
         }
+
+        [Test]
+        public void ParseDataLine()
+        {
+            var line = "   2005   7   23.3    14.1       0    45.8   202.5";
+            var actual = StationDataFile.ParseDataLine(line);
+            var expected = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
+
+            Expect(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ParseDataLineWithNulls()
+        {
+            var line = "   1948   2    7.9     2.2    ---     26.0    ---";
+            var actual = StationDataFile.ParseDataLine(line);
+            var expected = new MonthlyStationData(1948, 2, 7.9, 2.2, null, 26.0, null, null, false);
+
+            Expect(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ParseIllegalDataLine()
+        {
+            var line = "";
+            Assert.Throws<ArgumentException>(
+                () => StationDataFile.ParseDataLine(line));
+        }
+
+        [Test]
+        public void ParseDataLineWithKippAndZonen()
+        {
+            var line = "   2012  12    9.0     2.6      10    95.8    58.0#";
+            var actual = StationDataFile.ParseDataLine(line);
+            var expected = new MonthlyStationData(2012, 12, 9.0, 2.6, 10, 95.8, 58.0, false, false);
+
+            Expect(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ParseDataLineWithProvisional()
+        {
+            var line = "   2013   5   16.4     7.7       0    41.8   163.3#  Provisional";
+            var actual = StationDataFile.ParseDataLine(line);
+            var expected = new MonthlyStationData(2013, 5, 16.4, 7.7, 0, 41.8, 163.3, false, true);
+
+            Expect(actual, Is.EqualTo(expected));
+        }
     }
 }
