@@ -7,3 +7,4 @@ obj
 publish
 ~$*.xlsx
 *_TemporaryKey.pfx
+*.VisualState.xml
