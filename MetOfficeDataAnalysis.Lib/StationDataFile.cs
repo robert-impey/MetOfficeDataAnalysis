@@ -55,11 +55,6 @@ namespace MetOfficeDataAnalysis.Lib
 
             var parts = line.Trim().Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
-            for (var i = 0; i < parts.Length; i++)
-            {
-                parts[i] = parts[i].Trim();
-            }
-
             var yearPart = parts[0];
             var monthPart = parts[1];
             var maxTemperaturePart = parts[2];
