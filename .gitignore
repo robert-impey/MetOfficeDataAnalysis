@@ -8,3 +8,4 @@ publish
 ~$*.xlsx
 *_TemporaryKey.pfx
 *.VisualState.xml
+TestResult.xml

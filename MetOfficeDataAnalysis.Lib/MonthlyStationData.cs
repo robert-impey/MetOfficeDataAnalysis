@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+/// Data for one month from one station.
 namespace MetOfficeDataAnalysis.Lib
 {
     public class MonthlyStationData

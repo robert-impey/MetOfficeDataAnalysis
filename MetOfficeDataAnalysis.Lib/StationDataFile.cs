@@ -15,7 +15,7 @@ namespace MetOfficeDataAnalysis.Lib
         {
             StationName = reader.ReadLine().Trim();
 
-            MonthlyData = new LinkedList<MonthlyStationData>();
+            MonthlyData = new MonthlyStationDataLinkedList();
 
             while (true)
             {

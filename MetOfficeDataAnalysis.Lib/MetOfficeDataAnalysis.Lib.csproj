@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MonthlyStationData.cs" />
+    <Compile Include="MonthlyStationDataLinkedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StationDataFile.cs" />
   </ItemGroup>
