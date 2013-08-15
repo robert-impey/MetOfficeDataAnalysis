@@ -9,13 +9,13 @@ namespace MetOfficeDataAnalysis.Lib
     public class StationDataFile
     {
         public string StationName { get; private set; }
-        public ICollection<MonthlyStationData> MonthlyData { get; private set; }
+        public MonthlyStationDataCollection MonthlyData { get; private set; }
 
         public StationDataFile(TextReader reader)
         {
             StationName = reader.ReadLine().Trim();
 
-            MonthlyData = new MonthlyStationDataLinkedList();
+            MonthlyData = new MonthlyStationDataCollection();
 
             while (true)
             {
