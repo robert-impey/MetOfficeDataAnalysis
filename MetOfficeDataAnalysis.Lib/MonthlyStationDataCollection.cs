@@ -15,5 +15,16 @@ namespace MetOfficeDataAnalysis.Lib
                 return this.OrderByDescending(n => n.MaxTemperature).First();
             }
         }
+
+        public MonthlyStationData MonthWithColdestMaxTemperature
+        {
+            get
+            {
+                return this
+                    .Where(n => n.MaxTemperature != null)
+                    .OrderBy(n => n.MaxTemperature)
+                    .First();
+            }
+        }
     }
 }

@@ -34,11 +34,45 @@ namespace MetOfficeDataAnalysis.Test
         [Test]
         public void FindHottestMaxTemperature()
         {
-            var expectedHottestMonth = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
+            var expected = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
 
-            var actualHottestMonth = sampleMonthlyData.HottestMonth;
+            var actual = sampleMonthlyData.HottestMonth;
 
-            Expect(actualHottestMonth, Is.EqualTo(expectedHottestMonth));
+            Expect(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void FindHottestMaxTemperatureAvoidNulls()
+        {
+            sampleMonthlyData.Add(new MonthlyStationData(2005, 7, null, 14.1, 0, 45.8, 202.5, true, false));
+
+            var expected = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
+
+            var actual = sampleMonthlyData.HottestMonth;
+
+            Expect(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void FindMonthWithColdestMaxTemperature()
+        {
+            var expected = new MonthlyStationData(1948, 2, 7.9, 2.2, null, 26.0, null, null, false);
+
+            var actual = sampleMonthlyData.MonthWithColdestMaxTemperature;
+
+            Expect(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void FindMonthWithColdestMaxTemperatureAvoidNulls()
+        {
+            sampleMonthlyData.Add(new MonthlyStationData(1947, 1, null, 3.3, null, 85.0, null, null, false));
+
+            var expected = new MonthlyStationData(1948, 2, 7.9, 2.2, null, 26.0, null, null, false);
+
+            var actual = sampleMonthlyData.MonthWithColdestMaxTemperature;
+
+            Expect(actual, Is.EqualTo(expected));
         }
     }
 }
