@@ -23,6 +23,14 @@ namespace MetOfficeDataAnalysis
                 PrintMonthTemperature("Month with coldest max temperature",
                     monthWithColdestMaxTemperature.Year, monthWithColdestMaxTemperature.Month,
                     monthWithColdestMaxTemperature.MaxTemperature);
+
+                var coldestMonth = stationDataFile.MonthlyData.ColdestMonth;
+                PrintMonthTemperature("Coldest month", coldestMonth.Year, coldestMonth.Month, coldestMonth.MinTemperature);
+
+                var monthWithHottestMinTemperature = stationDataFile.MonthlyData.MonthWithHottestMinTemperature;
+                PrintMonthTemperature("Month with hottest min temperature",
+                    monthWithHottestMinTemperature.Year, monthWithHottestMinTemperature.Month,
+                    monthWithHottestMinTemperature.MinTemperature);
             }
             else
             {

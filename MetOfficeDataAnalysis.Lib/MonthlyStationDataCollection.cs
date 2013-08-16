@@ -26,5 +26,24 @@ namespace MetOfficeDataAnalysis.Lib
                     .First();
             }
         }
+
+        public MonthlyStationData ColdestMonth
+        {
+            get
+            {
+                return this
+                    .Where(n => n.MinTemperature != null)
+                    .OrderBy(n => n.MinTemperature)
+                    .First();
+            }
+        }
+
+        public MonthlyStationData MonthWithHottestMinTemperature
+        {
+            get
+            {
+                return this.OrderByDescending(n => n.MinTemperature).First();
+            }
+        }
     }
 }
