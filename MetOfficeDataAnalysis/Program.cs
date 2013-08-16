@@ -16,7 +16,7 @@ namespace MetOfficeDataAnalysis
                 var stationDataFile = new StationDataFile(new StreamReader(args[0]));
 
                 Console.WriteLine(String.Format("Station name: {0}", stationDataFile.StationName));
-                
+
                 var hottestMonth = stationDataFile.MonthlyData.HottestMonth;
                 PrintMonthTemperature("Hottest month", hottestMonth.Year, hottestMonth.Month, hottestMonth.MaxTemperature);
                 var monthWithColdestMaxTemperature = stationDataFile.MonthlyData.MonthWithColdestMaxTemperature;
@@ -26,7 +26,6 @@ namespace MetOfficeDataAnalysis
 
                 var coldestMonth = stationDataFile.MonthlyData.ColdestMonth;
                 PrintMonthTemperature("Coldest month", coldestMonth.Year, coldestMonth.Month, coldestMonth.MinTemperature);
-
                 var monthWithHottestMinTemperature = stationDataFile.MonthlyData.MonthWithHottestMinTemperature;
                 PrintMonthTemperature("Month with hottest min temperature",
                     monthWithHottestMinTemperature.Year, monthWithHottestMinTemperature.Month,
