@@ -9,3 +9,5 @@ publish
 *_TemporaryKey.pfx
 *.VisualState.xml
 TestResult.xml
+test-results
+
