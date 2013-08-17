@@ -116,7 +116,7 @@ namespace MetOfficeDataAnalysis.Test
 		{
 			sampleMonthlyData.Add (new MonthlyStationData (2004, 7, 22.7, 13.3, 0, 37.6, 201.5, true, false));
 
-			var expected = new Dictionary<int, double> ();
+			var expected = new SortedDictionary<int, double> ();
 			expected.Add (1, 8.9);
 			expected.Add (2, 7.9);
 			expected.Add (5, 16.4);

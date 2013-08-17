@@ -38,7 +38,7 @@ namespace MetOfficeDataAnalysis.Lib
 			}
 		}
 
-		public Dictionary<int, double> MeanMaxTemperatures {
+		public SortedDictionary<int, double> MeanMaxTemperatures {
 			get {
 				var sumMaxTemperatures = new Dictionary<int, double> ();
 				var countMaxTemperatures = new Dictionary<int, int> ();
@@ -60,7 +60,7 @@ namespace MetOfficeDataAnalysis.Lib
 					}
 				}
 
-				var meanMaxTemperature = new Dictionary<int, double> ();
+				var meanMaxTemperature = new SortedDictionary<int, double> ();
 
 				foreach (var month in sumMaxTemperatures.Keys) {
 					meanMaxTemperature [month] = sumMaxTemperatures [month] / countMaxTemperatures[month];
