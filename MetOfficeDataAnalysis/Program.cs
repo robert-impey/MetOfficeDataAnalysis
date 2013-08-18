@@ -31,11 +31,12 @@ namespace MetOfficeDataAnalysis
                     monthWithHottestMinTemperature.Year, monthWithHottestMinTemperature.Month,
                     monthWithHottestMinTemperature.MinTemperature);
 
-				Console.WriteLine ("Mean monthly max temperatures");
-				var meanMonthlyMaxTemperatures = stationDataFile.MonthlyData.MeanMaxTemperatures;
-				foreach (var month in meanMonthlyMaxTemperatures.Keys) {
-					Console.WriteLine (String.Format ("{0} - {1:#.00} C", month, meanMonthlyMaxTemperatures [month]));
-				}
+                Console.WriteLine("Mean monthly max temperatures");
+                var meanMonthlyMaxTemperatures = stationDataFile.MonthlyData.MeanMaxTemperatures;
+                foreach (var month in meanMonthlyMaxTemperatures.Keys)
+                {
+                    Console.WriteLine(String.Format("{0} - {1:#.00} C", month, meanMonthlyMaxTemperatures[month]));
+                }
             }
             else
             {

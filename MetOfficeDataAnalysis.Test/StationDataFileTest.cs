@@ -828,7 +828,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
             var stationDataFile = new StationDataFile(new StringReader(heathrowStationDataFileContent));
 
             var actualStationName = stationDataFile.StationName;
-            
+
             Expect(actualStationName, Is.EqualTo(expectedStationName));
         }
 
