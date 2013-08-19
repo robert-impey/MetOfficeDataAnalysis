@@ -50,39 +50,15 @@ namespace MetOfficeDataAnalysis.Lib
         {
             get
             {
-                var sumMaxTemperatures = new Dictionary<int, double>();
-                var countMaxTemperatures = new Dictionary<int, int>();
-
-                foreach (var data in this)
-                {
-                    if (data.MaxTemperature != null)
-                    {
-                        if (countMaxTemperatures.ContainsKey(data.Month))
-                        {
-                            countMaxTemperatures[data.Month]++;
-                        }
-                        else
-                        {
-                            countMaxTemperatures[data.Month] = 1;
-                        }
-
-                        double currentSumOfMaxTemperatures;
-                        if (sumMaxTemperatures.TryGetValue(data.Month, out currentSumOfMaxTemperatures))
-                        {
-                            sumMaxTemperatures[data.Month] = currentSumOfMaxTemperatures + data.MaxTemperature.Value;
-                        }
-                        else
-                        {
-                            sumMaxTemperatures[data.Month] = data.MaxTemperature.Value;
-                        }
-                    }
-                }
-
                 var meanMaxTemperature = new SortedDictionary<int, double>();
 
-                foreach (var month in sumMaxTemperatures.Keys)
+                var groups = from data in this
+                             where data.MaxTemperature != null
+                             group data by data.Month;
+
+                foreach (var group in groups)
                 {
-                    meanMaxTemperature[month] = sumMaxTemperatures[month] / countMaxTemperatures[month];
+                    meanMaxTemperature[group.Key] = group.Average(d => d.MaxTemperature.Value);
                 }
 
                 return meanMaxTemperature;
