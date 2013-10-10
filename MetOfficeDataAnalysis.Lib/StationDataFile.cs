@@ -40,34 +40,34 @@ namespace MetOfficeDataAnalysis.Lib
                     break;
                 }
 
-                MonthlyData.Add(ParseDataLine(line));
+                MonthlyStationData msd = null;
+                if (ParseDataLine(line, ref msd))
+                {
+                    MonthlyData.Add(msd);
+                }
             }
         }
 
-        public static MonthlyStationData ParseDataLine(string line)
+        public static bool ParseDataLine(string line, ref MonthlyStationData monthlyStationData)
         {
             if (String.IsNullOrWhiteSpace(line))
             {
-                throw new ArgumentException();
+                return false;
             }
 
             char[] delimiters = { ' ' };
 
             var parts = line.Trim().Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
-            var yearPart = parts[0];
-            var monthPart = parts[1];
-            var maxTemperaturePart = parts[2];
-            var minTemperaturePart = parts[3];
-            var airFrostPart = parts[4];
-            var rainPart = parts[5];
-            var sunshinePart = parts[6];
-
-            var provisionalPart = "";
-            if (parts.Length > 7)
-            {
-                provisionalPart = parts[7];
-            }
+            var i = 0;
+            var yearPart = parts.Length > i ? parts[i++] : "";
+            var monthPart = parts.Length > i ? parts[i++] : "";
+            var maxTemperaturePart = parts.Length > i ? parts[i++] : "";
+            var minTemperaturePart = parts.Length > i ? parts[i++] : "";
+            var airFrostPart = parts.Length > i ? parts[i++] : "";
+            var rainPart = parts.Length > i ? parts[i++] : "";
+            var sunshinePart = parts.Length > i ? parts[i++] : "";
+            var provisionalPart = parts.Length > i ? parts[i++] : "";
 
             int year, month;
             if (int.TryParse(yearPart, out year) && int.TryParse(monthPart, out month))
@@ -106,11 +106,13 @@ namespace MetOfficeDataAnalysis.Lib
 
                 var provisional = provisionalPart == "Provisional";
 
-                return new MonthlyStationData(year, month, maxTemperature, minTemperature,
+                monthlyStationData = new MonthlyStationData(year, month, maxTemperature, minTemperature,
                     airFrost, rain, sunshine, campbellStokes, provisional);
+
+                return true;
             }
 
-            throw new ArgumentException("Unable to parse line!");
+            return false;
         }
 
         private static bool DatumIsMissing(string datum)

@@ -12,7 +12,7 @@ namespace MetOfficeDataAnalysis.Lib
         {
             get
             {
-                return this.OrderByDescending(n => n.MaxTemperature).First();
+                return this.Where(n => n.MaxTemperature != null).OrderByDescending(n => n.MaxTemperature).First();
             }
         }
 
@@ -42,7 +42,7 @@ namespace MetOfficeDataAnalysis.Lib
         {
             get
             {
-                return this.OrderByDescending(n => n.MinTemperature).First();
+                return this.Where(n => n.MinTemperature != null).OrderByDescending(n => n.MinTemperature).First();
             }
         }
 

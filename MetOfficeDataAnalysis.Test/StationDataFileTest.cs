@@ -853,49 +853,69 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
         [Test]
         public void ParseDataLine()
         {
-            var line = "   2005   7   23.3    14.1       0    45.8   202.5";
-            var actual = StationDataFile.ParseDataLine(line);
             var expected = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
+            var line = "   2005   7   23.3    14.1       0    45.8   202.5";
 
-            Expect(actual, Is.EqualTo(expected));
+            MonthlyStationData actual = null;
+            if (StationDataFile.ParseDataLine(line, ref actual))
+            {
+                Expect(actual, Is.EqualTo(expected));
+            }
         }
 
         [Test]
         public void ParseDataLineWithNulls()
         {
-            var line = "   1948   2    7.9     2.2    ---     26.0    ---";
-            var actual = StationDataFile.ParseDataLine(line);
             var expected = new MonthlyStationData(1948, 2, 7.9, 2.2, null, 26.0, null, null, false);
+            var line = "   1948   2    7.9     2.2    ---     26.0    ---";
 
-            Expect(actual, Is.EqualTo(expected));
+            MonthlyStationData actual = null;
+            if (StationDataFile.ParseDataLine(line, ref actual))
+            {
+                Expect(actual, Is.EqualTo(expected));
+            }
         }
 
         [Test]
         public void ParseIllegalDataLine()
         {
+            MonthlyStationData msd = null;
             var line = "";
-            Assert.Throws<ArgumentException>(
-                () => StationDataFile.ParseDataLine(line));
+            Expect(StationDataFile.ParseDataLine(line, ref msd), Is.False);
         }
 
         [Test]
         public void ParseDataLineWithKippAndZonen()
         {
             var line = "   2012  12    9.0     2.6      10    95.8    58.0#";
-            var actual = StationDataFile.ParseDataLine(line);
             var expected = new MonthlyStationData(2012, 12, 9.0, 2.6, 10, 95.8, 58.0, false, false);
 
-            Expect(actual, Is.EqualTo(expected));
+            MonthlyStationData actual = null;
+            if (StationDataFile.ParseDataLine(line, ref actual))
+            {
+                Expect(actual, Is.EqualTo(expected));
+            }
         }
 
         [Test]
         public void ParseDataLineWithProvisional()
         {
-            var line = "   2013   5   16.4     7.7       0    41.8   163.3#  Provisional";
-            var actual = StationDataFile.ParseDataLine(line);
             var expected = new MonthlyStationData(2013, 5, 16.4, 7.7, 0, 41.8, 163.3, false, true);
+            var line = "   2013   5   16.4     7.7       0    41.8   163.3#  Provisional";
 
-            Expect(actual, Is.EqualTo(expected));
+            MonthlyStationData actual = null;
+            if (StationDataFile.ParseDataLine(line, ref actual))
+            {
+                Expect(actual, Is.EqualTo(expected));
+            }
+        }
+
+        [Test]
+        public void ParseDataLineForClosedSite()
+        {
+            MonthlyStationData msd = null;
+            var line = "Site closed";
+            Expect(StationDataFile.ParseDataLine(line, ref msd), Is.False);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace MetOfficeDataAnalysis.Lib
     public class MonthlyStationData
     {
         public int Year { get; private set; }
-        public int Month { get; set; } // 1 to 12
+        public int Month { get; private set; } // 1 to 12
         public double? MaxTemperature { get; private set; } // Deg. C
         public double? MinTemperature { get; private set; }
         public int? AirFrost { get; private set; } // Days
