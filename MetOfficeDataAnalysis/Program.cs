@@ -13,7 +13,21 @@ namespace MetOfficeDataAnalysis
         {
             if (args.Length == 1)
             {
-                PrintStationFileData(args[0]);
+                var path = args[0];
+                if (File.Exists(path))
+                {
+                    PrintStationFileData(path);
+                }
+                else if (Directory.Exists(path))
+                {
+                    string[] fileEntries = Directory.GetFiles(path);
+                    foreach (string fileName in fileEntries)
+                        PrintStationFileData(fileName);
+                }
+                else
+                {
+                    Console.WriteLine("{0} is not a valid file or directory.", path);
+                }
             }
             else
             {
