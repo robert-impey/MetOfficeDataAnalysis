@@ -1,11 +1,18 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetOfficeDataAnalysis", "MetOfficeDataAnalysis\MetOfficeDataAnalysis.csproj", "{17A7FC71-9626-4FE4-990F-25F2D528A771}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetOfficeDataAnalysis.Lib", "MetOfficeDataAnalysis.Lib\MetOfficeDataAnalysis.Lib.csproj", "{CCFF3D3B-F756-4DE9-9A30-BA11A2B2C140}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetOfficeDataAnalysis.Test", "MetOfficeDataAnalysis.Test\MetOfficeDataAnalysis.Test.csproj", "{3A586DBE-5006-4568-A3D3-A9C1F3D69176}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6C125288-3958-4CBD-8656-9C7E859D9DE5}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
