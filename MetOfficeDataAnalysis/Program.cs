@@ -36,7 +36,7 @@ namespace MetOfficeDataAnalysis
         {
             var stationDataFile = new StationDataFile(new StreamReader(fileName));
 
-            Console.WriteLine(String.Format("Station name: {0}", stationDataFile.StationName));
+            Console.WriteLine($"Station name: {stationDataFile.StationName}");
 
             var hottestMonth = stationDataFile.MonthlyData.HottestMonth;
             PrintMonthTemperature("Hottest month", hottestMonth.Year, hottestMonth.Month, hottestMonth.MaxTemperature);
@@ -54,9 +54,9 @@ namespace MetOfficeDataAnalysis
 
             Console.WriteLine("Mean monthly max temperatures");
             var meanMonthlyMaxTemperatures = stationDataFile.MonthlyData.MeanMaxTemperatures;
-            foreach (var month in meanMonthlyMaxTemperatures.Keys)
+            foreach (var kvp in meanMonthlyMaxTemperatures)
             {
-                Console.WriteLine(String.Format("{0} - {1:#.00} C", month, meanMonthlyMaxTemperatures[month]));
+                Console.WriteLine($"{kvp.Key} - {kvp.Value:#.00} C");
             }
         }
 

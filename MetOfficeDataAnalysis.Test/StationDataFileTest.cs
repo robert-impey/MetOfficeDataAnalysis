@@ -6,7 +6,7 @@ using MetOfficeDataAnalysis.Lib;
 namespace MetOfficeDataAnalysis.Test
 {
     [TestFixture]
-    class StationDataFileTest : AssertionHelper
+    class StationDataFileTest 
     {
         // From http://www.metoffice.gov.uk/climate/uk/stationdata/
         private const string heathrowStationDataFileContent = @"Heathrow (London Airport)
@@ -826,7 +826,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
 
             var actualStationName = stationDataFile.StationName;
 
-            Expect(actualStationName, Is.EqualTo(expectedStationName));
+            Equals(actualStationName, Is.EqualTo(expectedStationName));
         }
 
         [Test]
@@ -844,7 +844,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
 
             var actualMonthlyData = stationDataFile.MonthlyData;
 
-            Expect(actualMonthlyData, Is.EqualTo(expectedMonthlyData));
+            Equals(actualMonthlyData, Is.EqualTo(expectedMonthlyData));
         }
 
         [Test]
@@ -856,7 +856,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
             MonthlyStationData actual = null;
             if (StationDataFile.ParseDataLine(line, ref actual))
             {
-                Expect(actual, Is.EqualTo(expected));
+                Equals(actual, Is.EqualTo(expected));
             }
         }
 
@@ -869,7 +869,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
             MonthlyStationData actual = null;
             if (StationDataFile.ParseDataLine(line, ref actual))
             {
-                Expect(actual, Is.EqualTo(expected));
+                Equals(actual, Is.EqualTo(expected));
             }
         }
 
@@ -878,7 +878,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
         {
             MonthlyStationData msd = null;
             var line = "";
-            Expect(StationDataFile.ParseDataLine(line, ref msd), Is.False);
+            Equals(StationDataFile.ParseDataLine(line, ref msd), Is.False);
         }
 
         [Test]
@@ -890,7 +890,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
             MonthlyStationData actual = null;
             if (StationDataFile.ParseDataLine(line, ref actual))
             {
-                Expect(actual, Is.EqualTo(expected));
+                Equals(actual, Is.EqualTo(expected));
             }
         }
 
@@ -903,7 +903,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
             MonthlyStationData actual = null;
             if (StationDataFile.ParseDataLine(line, ref actual))
             {
-                Expect(actual, Is.EqualTo(expected));
+                Equals(actual, Is.EqualTo(expected));
             }
         }
 
@@ -912,7 +912,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
         {
             MonthlyStationData msd = null;
             var line = "Site closed";
-            Expect(StationDataFile.ParseDataLine(line, ref msd), Is.False);
+            Equals(StationDataFile.ParseDataLine(line, ref msd), Is.False);
         }
     }
 }
