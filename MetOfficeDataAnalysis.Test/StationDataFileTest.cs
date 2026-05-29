@@ -9,7 +9,7 @@ namespace MetOfficeDataAnalysis.Test
     class StationDataFileTest 
     {
         // From http://www.metoffice.gov.uk/climate/uk/stationdata/
-        private const string heathrowStationDataFileContent = @"Heathrow (London Airport)
+        private const string HeathrowStationDataFileContent = @"Heathrow (London Airport)
 Location 5078E 1767N 25m amsl
 Estimated data is marked with a * after the value.
 Missing data (more than 2 days missing in month) is marked by  ---.
@@ -822,7 +822,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
         {
             var expectedStationName = "Heathrow (London Airport)";
 
-            var stationDataFile = new StationDataFile(new StringReader(heathrowStationDataFileContent));
+            var stationDataFile = new StationDataFile(new StringReader(HeathrowStationDataFileContent));
 
             var actualStationName = stationDataFile.StationName;
 
