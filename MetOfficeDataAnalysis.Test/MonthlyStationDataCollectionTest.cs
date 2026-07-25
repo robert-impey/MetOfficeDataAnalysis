@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 using MetOfficeDataAnalysis.Lib;
 
 namespace MetOfficeDataAnalysis.Test
 {
-    [TestFixture]
-    class MonthlyStationDataCollectionTest
+    public class MonthlyStationDataCollectionTest
     {
         private MonthlyStationDataCollection sampleMonthlyData;
 
-        [SetUp]
-        public void SetUp()
+        public MonthlyStationDataCollectionTest()
         {
             sampleMonthlyData = new MonthlyStationDataCollection
             {
@@ -23,22 +21,16 @@ namespace MetOfficeDataAnalysis.Test
             };
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            sampleMonthlyData = null;
-        }
-
-        [Test]
+        [Fact]
         public void FindHottestMaxTemperature()
         {
             var expected = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
             var actual = sampleMonthlyData.HottestMonth;
 
-            Equals(actual, Is.EqualTo(expected));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void FindHottestMaxTemperatureAvoidNulls()
         {
             sampleMonthlyData.Add(new MonthlyStationData(2005, 7, null, 14.1, 0, 45.8, 202.5, true, false));
@@ -46,19 +38,19 @@ namespace MetOfficeDataAnalysis.Test
             var expected = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
             var actual = sampleMonthlyData.HottestMonth;
 
-            Equals(actual, Is.EqualTo(expected));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void FindMonthWithColdestMaxTemperature()
         {
             var expected = new MonthlyStationData(1948, 2, 7.9, 2.2, null, 26.0, null, null, false);
             var actual = sampleMonthlyData.MonthWithColdestMaxTemperature;
 
-            Equals(actual, Is.EqualTo(expected));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void FindMonthWithColdestMaxTemperatureAvoidNulls()
         {
             sampleMonthlyData.Add(new MonthlyStationData(1947, 1, null, 3.3, null, 85.0, null, null, false));
@@ -66,19 +58,19 @@ namespace MetOfficeDataAnalysis.Test
             var expected = new MonthlyStationData(1948, 2, 7.9, 2.2, null, 26.0, null, null, false);
             var actual = sampleMonthlyData.MonthWithColdestMaxTemperature;
 
-            Equals(actual, Is.EqualTo(expected));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void FindColdestMinTemperature()
         {
             var expected = new MonthlyStationData(1948, 2, 7.9, 2.2, null, 26.0, null, null, false);
             var actual = sampleMonthlyData.ColdestMonth;
 
-            Equals(actual, Is.EqualTo(expected));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void FindColdestMinTemperatureAvoidNulls()
         {
             sampleMonthlyData.Add(new MonthlyStationData(1947, 2, 7.9, null, null, 26.0, null, null, false));
@@ -86,19 +78,19 @@ namespace MetOfficeDataAnalysis.Test
             var expected = new MonthlyStationData(1948, 2, 7.9, 2.2, null, 26.0, null, null, false);
             var actual = sampleMonthlyData.ColdestMonth;
 
-            Equals(actual, Is.EqualTo(expected));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void FindMonthWithHottestMinTemperature()
         {
             var expected = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
             var actual = sampleMonthlyData.MonthWithHottestMinTemperature;
 
-            Equals(actual, Is.EqualTo(expected));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void FindMonthWithHottestMinTemperatureAvoidNulls()
         {
             sampleMonthlyData.Add(new MonthlyStationData(1947, 7, 23.3, null, 0, 45.8, 202.5, true, false));
@@ -106,10 +98,10 @@ namespace MetOfficeDataAnalysis.Test
             var expected = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
             var actual = sampleMonthlyData.MonthWithHottestMinTemperature;
 
-            Equals(actual, Is.EqualTo(expected));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void FindMonthlyMeanMaxTemperatures()
         {
             sampleMonthlyData.Add(new MonthlyStationData(2004, 7, 22.7, 13.3, 0, 37.6, 201.5, true, false));
@@ -126,7 +118,7 @@ namespace MetOfficeDataAnalysis.Test
 
             var actual = sampleMonthlyData.MeanMaxTemperatures;
 
-            Equals(actual, Is.EqualTo(expected));
+            Assert.Equal(expected, actual);
         }
     }
 }

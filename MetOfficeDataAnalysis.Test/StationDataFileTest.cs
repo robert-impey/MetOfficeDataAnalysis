@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 using System.IO;
 using MetOfficeDataAnalysis.Lib;
 
 namespace MetOfficeDataAnalysis.Test
 {
-    [TestFixture]
-    class StationDataFileTest 
+    public class StationDataFileTest 
     {
         // From http://www.metoffice.gov.uk/climate/uk/stationdata/
         private const string HeathrowStationDataFileContent = @"Heathrow (London Airport)
@@ -817,7 +816,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
    2013   5   16.4     7.7       0    41.8   163.3#  Provisional
 ";
 
-        [Test]
+        [Fact]
         public void ExtractStationName()
         {
             var expectedStationName = "Heathrow (London Airport)";
@@ -826,10 +825,10 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
 
             var actualStationName = stationDataFile.StationName;
 
-            Equals(actualStationName, Is.EqualTo(expectedStationName));
+            Assert.Equal(expectedStationName, actualStationName);
         }
 
-        [Test]
+        [Fact]
         public void ExtractMonthlyData()
         {
             var expectedMonthlyData = new LinkedList<MonthlyStationData>();
@@ -844,75 +843,67 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
 
             var actualMonthlyData = stationDataFile.MonthlyData;
 
-            Equals(actualMonthlyData, Is.EqualTo(expectedMonthlyData));
+            Assert.Equal(expectedMonthlyData, actualMonthlyData);
         }
 
-        [Test]
+        [Fact]
         public void ParseDataLine()
         {
             var expected = new MonthlyStationData(2005, 7, 23.3, 14.1, 0, 45.8, 202.5, true, false);
             var line = "   2005   7   23.3    14.1       0    45.8   202.5";
 
             MonthlyStationData actual = null;
-            if (StationDataFile.ParseDataLine(line, ref actual))
-            {
-                Equals(actual, Is.EqualTo(expected));
-            }
+            Assert.True(StationDataFile.ParseDataLine(line, ref actual));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void ParseDataLineWithNulls()
         {
             var expected = new MonthlyStationData(1948, 2, 7.9, 2.2, null, 26.0, null, null, false);
             var line = "   1948   2    7.9     2.2    ---     26.0    ---";
 
             MonthlyStationData actual = null;
-            if (StationDataFile.ParseDataLine(line, ref actual))
-            {
-                Equals(actual, Is.EqualTo(expected));
-            }
+            Assert.True(StationDataFile.ParseDataLine(line, ref actual));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void ParseIllegalDataLine()
         {
             MonthlyStationData msd = null;
             var line = "";
-            Equals(StationDataFile.ParseDataLine(line, ref msd), Is.False);
+            Assert.False(StationDataFile.ParseDataLine(line, ref msd));
         }
 
-        [Test]
+        [Fact]
         public void ParseDataLineWithKippAndZonen()
         {
             var line = "   2012  12    9.0     2.6      10    95.8    58.0#";
             var expected = new MonthlyStationData(2012, 12, 9.0, 2.6, 10, 95.8, 58.0, false, false);
 
             MonthlyStationData actual = null;
-            if (StationDataFile.ParseDataLine(line, ref actual))
-            {
-                Equals(actual, Is.EqualTo(expected));
-            }
+            Assert.True(StationDataFile.ParseDataLine(line, ref actual));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void ParseDataLineWithProvisional()
         {
             var expected = new MonthlyStationData(2013, 5, 16.4, 7.7, 0, 41.8, 163.3, false, true);
             var line = "   2013   5   16.4     7.7       0    41.8   163.3#  Provisional";
 
             MonthlyStationData actual = null;
-            if (StationDataFile.ParseDataLine(line, ref actual))
-            {
-                Equals(actual, Is.EqualTo(expected));
-            }
+            Assert.True(StationDataFile.ParseDataLine(line, ref actual));
+            Assert.Equal(expected, actual);
         }
 
-        [Test]
+        [Fact]
         public void ParseDataLineForClosedSite()
         {
             MonthlyStationData msd = null;
             var line = "Site closed";
-            Equals(StationDataFile.ParseDataLine(line, ref msd), Is.False);
+            Assert.False(StationDataFile.ParseDataLine(line, ref msd));
         }
     }
 }
