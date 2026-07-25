@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="MetOfficeDataAnalysis.Lib/MetOfficeDataAnalysis.Lib.csproj" />
+  <Project Path="MetOfficeDataAnalysis.Test/MetOfficeDataAnalysis.Test.csproj" />
+  <Project Path="MetOfficeDataAnalysis/MetOfficeDataAnalysis.csproj" />
+</Solution>
