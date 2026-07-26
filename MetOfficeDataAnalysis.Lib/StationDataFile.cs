@@ -122,8 +122,7 @@ public class StationDataFile
         var sunshinePart = parts.Length > i ? parts[i++] : "";
         var provisionalPart = parts.Length > i ? parts[i++] : "";
 
-        int year, month;
-        if (int.TryParse(yearPart, out year) && int.TryParse(monthPart, out month))
+        if (int.TryParse(yearPart, out var year) && int.TryParse(monthPart, out var month))
         {
             double? maxTemperature = PartToNullableDouble(maxTemperaturePart);
             double? minTemperature = PartToNullableDouble(minTemperaturePart);
@@ -131,8 +130,7 @@ public class StationDataFile
             int? airFrost = null;
             if (!DatumIsMissing(airFrostPart))
             {
-                int airFrostValue;
-                if (int.TryParse(airFrostPart, out airFrostValue))
+                if (int.TryParse(airFrostPart, out var airFrostValue))
                 {
                     airFrost = airFrostValue;
                 }
@@ -144,10 +142,12 @@ public class StationDataFile
             bool? campbellStokes = null;
             if (!DatumIsMissing(sunshinePart))
             {
-                if (sunshinePart.EndsWith("#"))
+                if (sunshinePart.EndsWith('#'))
                 {
                     campbellStokes = false;
-                    sunshinePart = sunshinePart.Remove(sunshinePart.IndexOf('#'));
+                    var idx = sunshinePart.IndexOf('#');
+                    if (idx >= 0)
+                        sunshinePart = sunshinePart.Remove(idx);
                 }
                 else
                 {
@@ -168,23 +168,13 @@ public class StationDataFile
         return false;
     }
 
-    private static bool DatumIsMissing(string datum)
-    {
-        return datum == "---";
-    }
+    private static bool DatumIsMissing(string datum) => datum == "---";
 
     private static double? PartToNullableDouble(string part)
     {
-        double? datum = null;
-        if (!DatumIsMissing(part))
-        {
-            double value;
-            if (double.TryParse(part, out value))
-            {
-                datum = value;
-            }
-        }
+        if (DatumIsMissing(part))
+            return null;
 
-        return datum;
+        return double.TryParse(part, out var value) ? (double?)value : null;
     }
 }

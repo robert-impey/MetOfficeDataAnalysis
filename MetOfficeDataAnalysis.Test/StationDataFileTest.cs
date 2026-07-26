@@ -1,6 +1,5 @@
-﻿using Xunit;
-using MetOfficeDataAnalysis.Lib;
-using System.Threading.Tasks;
+﻿using MetOfficeDataAnalysis.Lib;
+using Xunit;
 
 namespace MetOfficeDataAnalysis.Test;
 
