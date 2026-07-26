@@ -1,7 +1,8 @@
 {
   "profiles": {
     "MetOfficeDataAnalysis": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\rober\\OneDrive\\data\\Met Office Station Data\\aberporthdata.txt\""
     }
   }
 }
