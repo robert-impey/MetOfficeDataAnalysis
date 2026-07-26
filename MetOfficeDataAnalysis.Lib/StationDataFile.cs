@@ -4,16 +4,27 @@ public class StationDataFile
 {
     public string StationName { get; private set; }
     public MonthlyStationDataCollection MonthlyData { get; private set; }
-
-    public StationDataFile(TextReader reader)
+    // Make the ctor private so instances are created via the loader methods
+    private StationDataFile()
     {
-        StationName = reader.ReadLine().Trim();
+    }
 
-        MonthlyData = new MonthlyStationDataCollection();
+    // Async loader - reads from a TextReader using async APIs and returns a fully constructed instance
+    public static async Task<StationDataFile> LoadAsync(TextReader reader)
+    {
+        if (reader == null) throw new ArgumentNullException(nameof(reader));
+
+        var instance = new StationDataFile();
+
+        var line = await reader.ReadLineAsync().ConfigureAwait(false);
+        if (line == null) throw new Exception("Empty station file");
+        instance.StationName = line.Trim();
+
+        instance.MonthlyData = new MonthlyStationDataCollection();
 
         while (true)
         {
-            var line = reader.ReadLine();
+            line = await reader.ReadLineAsync().ConfigureAwait(false);
             if (line == "              degC    degC    days      mm   hours")
             {
                 break;
@@ -27,7 +38,7 @@ public class StationDataFile
 
         while (true)
         {
-            var line = reader.ReadLine();
+            line = await reader.ReadLineAsync().ConfigureAwait(false);
 
             if (line == null)
             {
@@ -37,9 +48,57 @@ public class StationDataFile
             MonthlyStationData msd = null;
             if (ParseDataLine(line, ref msd))
             {
-                MonthlyData.Add(msd);
+                instance.MonthlyData.Add(msd);
             }
         }
+
+        return instance;
+    }
+
+    // Synchronous loader kept for convenience
+    public static StationDataFile Load(TextReader reader)
+    {
+        if (reader == null) throw new ArgumentNullException(nameof(reader));
+
+        var instance = new StationDataFile();
+
+        var line = reader.ReadLine();
+        if (line == null) throw new Exception("Empty station file");
+        instance.StationName = line.Trim();
+
+        instance.MonthlyData = new MonthlyStationDataCollection();
+
+        while (true)
+        {
+            line = reader.ReadLine();
+            if (line == "              degC    degC    days      mm   hours")
+            {
+                break;
+            }
+
+            if (line == null)
+            {
+                throw new Exception("End of file reached before getting to the data!");
+            }
+        }
+
+        while (true)
+        {
+            line = reader.ReadLine();
+
+            if (line == null)
+            {
+                break;
+            }
+
+            MonthlyStationData msd = null;
+            if (ParseDataLine(line, ref msd))
+            {
+                instance.MonthlyData.Add(msd);
+            }
+        }
+
+        return instance;
     }
 
     public static bool ParseDataLine(string line, ref MonthlyStationData monthlyStationData)

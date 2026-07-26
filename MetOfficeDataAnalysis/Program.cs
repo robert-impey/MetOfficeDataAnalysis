@@ -4,20 +4,20 @@ namespace MetOfficeDataAnalysis;
 
 internal class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         if (args.Length == 1)
         {
             var path = args[0];
             if (File.Exists(path))
             {
-                PrintStationFileData(path);
+                await PrintStationFileData(path);
             }
             else if (Directory.Exists(path))
             {
                 string[] fileEntries = Directory.GetFiles(path);
                 foreach (string fileName in fileEntries)
-                    PrintStationFileData(fileName);
+                    await PrintStationFileData(fileName);
             }
             else
             {
@@ -29,10 +29,9 @@ internal class Program
             Console.WriteLine("Not sure what to do!");
         }
     }
-
-    private static void PrintStationFileData(string fileName)
+    private static async Task PrintStationFileData(string fileName)
     {
-        var stationDataFile = new StationDataFile(new StreamReader(fileName));
+        var stationDataFile = await StationDataFile.LoadAsync(new StreamReader(fileName));
 
         Console.WriteLine($"Station name: {stationDataFile.StationName}");
 
@@ -60,7 +59,6 @@ internal class Program
 
     private static void PrintMonthTemperature(string description, int year, int month, double? temperature)
     {
-        Console.WriteLine(String.Format("{0}: {1}-{2}, Temp: {3} C",
-            description, year, month, temperature));
+        Console.WriteLine($"{description}: {year}-{month}, Temp: {temperature} C");
     }
 }

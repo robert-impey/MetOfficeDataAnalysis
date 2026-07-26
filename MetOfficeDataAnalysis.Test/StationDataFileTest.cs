@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using MetOfficeDataAnalysis.Lib;
+using System.Threading.Tasks;
 
 namespace MetOfficeDataAnalysis.Test;
 
@@ -815,11 +816,11 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
 ";
 
     [Fact]
-    public void ExtractStationName()
+    public async Task ExtractStationName()
     {
         var expectedStationName = "Heathrow (London Airport)";
 
-        var stationDataFile = new StationDataFile(new StringReader(HeathrowStationDataFileContent));
+        var stationDataFile = await StationDataFile.LoadAsync(new StringReader(HeathrowStationDataFileContent));
 
         var actualStationName = stationDataFile.StationName;
 
@@ -827,7 +828,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
     }
 
     [Fact]
-    public void ExtractMonthlyData()
+    public async Task ExtractMonthlyData()
     {
         var expectedMonthlyData = new LinkedList<MonthlyStationData>();
         expectedMonthlyData.AddLast(new MonthlyStationData(1948, 1, 8.9, 3.3, null, 85.0, null, null, false));
@@ -837,7 +838,7 @@ Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, other
         expectedMonthlyData.AddLast(new MonthlyStationData(2012, 12, 9.0, 2.6, 10, 95.8, 58.0, false, false));
         expectedMonthlyData.AddLast(new MonthlyStationData(2013, 5, 16.4, 7.7, 0, 41.8, 163.3, false, true));
 
-        var stationDataFile = new StationDataFile(new StringReader(shortHeathrowStationDataFileContent));
+        var stationDataFile = await StationDataFile.LoadAsync(new StringReader(shortHeathrowStationDataFileContent));
 
         var actualMonthlyData = stationDataFile.MonthlyData;
 
